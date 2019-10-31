@@ -264,7 +264,7 @@
                         <include>**/*</include>
                     </includes>
                     <!-- github repo name -->
-                    <repositoryName>sw-protection-client</repositoryName>
+                    <repositoryName>cypher-dsl</repositoryName>
                     <!-- github username -->
                     <repositoryOwner>${github.username}</repositoryOwner>
                 </configuration>
