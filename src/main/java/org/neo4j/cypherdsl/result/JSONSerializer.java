@@ -21,9 +21,9 @@ package org.neo4j.cypherdsl.result;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Path;
 
@@ -34,7 +34,7 @@ public class JSONSerializer
 {
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public ArrayNode toJSON( Iterator<Map<String, Object>> result )
+    public ArrayNode toJSON(Iterator<Map<String, Object>> result )
     {
         ArrayNode root = mapper.createArrayNode();
 
