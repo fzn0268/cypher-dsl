@@ -21,9 +21,9 @@
   <url>http://github.com/neo4j-contrib/cypher-dsl</url>
 
   <scm>
-    <connection>scm:git:git://github.com/neo4j/cypher-dsl.git</connection>
-    <developerConnection>scm:git:git@github.com:neo4j/cypher-dsl.git</developerConnection>
-    <url>https://github.com/neo4j/cypher-dsl</url>
+    <connection>scm:git:git://github.com/fzn0268/cypher-dsl.git</connection>
+    <developerConnection>scm:git:git@github.com:fzn0268/cypher-dsl.git</developerConnection>
+    <url>https://github.com/fzn0268/cypher-dsl</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -39,6 +39,14 @@
           <distribution>repo</distribution>
       </license>
     </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/fzn0268/cypher-dsl</url>
+        </repository>
+    </distributionManagement>
 
   <properties>
     <neo4j.version>3.3.0</neo4j.version>
