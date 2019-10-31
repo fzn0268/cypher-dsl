@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.neo4j</groupId>
@@ -21,9 +22,9 @@
   <url>http://github.com/neo4j-contrib/cypher-dsl</url>
 
   <scm>
-    <connection>scm:git:git://github.com/fzn0268/cypher-dsl.git</connection>
-    <developerConnection>scm:git:git@github.com:fzn0268/cypher-dsl.git</developerConnection>
-    <url>https://github.com/fzn0268/cypher-dsl</url>
+    <connection>scm:git:git://github.com/neo4j-contrib/cypher-dsl.git</connection>
+    <developerConnection>scm:git:git@github.com:neo4j-contrib/cypher-dsl.git</developerConnection>
+    <url>https://github.com/neo4j-contrib/cypher-dsl</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -42,9 +43,9 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/fzn0268/cypher-dsl</url>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
     </distributionManagement>
 
@@ -56,6 +57,9 @@
     <short-name>cypher-dsl</short-name>
     <license-text.header>asl-2-header.txt</license-text.header>
     <additionalparam>-Xdoclint:none</additionalparam>
+
+      <github.global.server>github</github.global.server>
+      <github.username>fzn0268</github.username>
   </properties>
 
 
@@ -174,6 +178,13 @@
                 </executions>
             </plugin>
             <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.10.b1</version>
@@ -232,6 +243,40 @@
         </executions>
       </plugin>
 
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <!-- git commit message -->
+                    <message>Maven artifacts for ${project.version}</message>
+                    <!-- disable webpage processing -->
+                    <noJekyll>true</noJekyll>
+                    <!-- matches distribution management repository url above -->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                    <!-- remote branch name -->
+                    <branch>refs/heads/mvn-repo</branch>
+                    <!-- If you remove this then the old artifact will be removed and new
+                     one will replace. But with the merge tag you can just release by changing
+                                                      the version -->
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <!-- github repo name -->
+                    <repositoryName>sw-protection-client</repositoryName>
+                    <!-- github username -->
+                    <repositoryOwner>${github.username}</repositoryOwner>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     <pluginManagement>
       <plugins>

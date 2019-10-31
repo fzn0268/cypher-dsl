@@ -6,6 +6,8 @@ dist: trusty
 
 install: skip
 
+script: skip
+
 deploy:
   provider: script
   script: cp .travis-maven-settings.xml $HOME/.m2/settings.xml && mvn -DperformRelease=true deploy
